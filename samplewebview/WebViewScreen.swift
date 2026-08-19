@@ -8,8 +8,10 @@ import SwiftUI
 struct WebViewScreen: View {
 
     @StateObject private var model: WebViewModel
+    private let url: URL
 
     init(url: URL) {
+        self.url = url
         _model = StateObject(wrappedValue: WebViewModel(url: url))
     }
 
@@ -31,6 +33,15 @@ struct WebViewScreen: View {
             }
         }
         .ignoresSafeArea(edges: .bottom)
+        .navigationTitle(url.host ?? "Web")
+        .toolbarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Reload", systemImage: "arrow.clockwise") {
+                    model.reload()
+                }
+            }
+        }
         .alert(
             "Location Access Needed",
             isPresented: $model.isShowingLocationSettingsPrompt

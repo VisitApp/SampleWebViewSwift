@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        WebViewScreen(url: AppLinks.sso)
+        LinkLauncherView()
     }
 }
 
